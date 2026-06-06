@@ -1,98 +1,193 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Galaga Travel Service
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Microservicio REST para la gestión de viajes compartidos, parte de la plataforma **RIDECI LEGACY**. Construido con **NestJS**, **MongoDB** (via Prisma ORM) y **RabbitMQ** para comunicación asíncrona entre servicios.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## Tecnologías principales
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+| Tecnología | Uso |
+|---|---|
+| NestJS 11 | Framework principal |
+| MongoDB + Prisma 6 | Base de datos y ORM |
+| RabbitMQ (amqplib) | Mensajería de eventos |
+| Swagger / OpenAPI | Documentación de la API |
+| Prometheus (prom-client) | Métricas del servicio |
+| class-validator | Validación de DTOs |
 
-## Project setup
+---
 
-```bash
-$ pnpm install
+## Arquitectura
+
+El servicio implementa **arquitectura hexagonal (Ports & Adapters)**:
+
+```
+src/
+├── travels/
+│   ├── domain/              # Entidades y enums del negocio
+│   ├── application/
+│   │   ├── service/         # Lógica de negocio
+│   │   ├── ports/out/       # Interfaces (repositorio + publicador de eventos)
+│   │   └── events/          # Definición de eventos de dominio
+│   └── infraestructure/
+│       ├── controller/      # HTTP Controllers + DTOs
+│       ├── persistence/     # Adaptador Prisma/MongoDB
+│       └── rabbit/          # Adaptador RabbitMQ
+└── metrics/                 # Métricas Prometheus
 ```
 
-## Compile and run the project
+---
 
-```bash
-# development
-$ pnpm run start
+## Variables de entorno
 
-# watch mode
-$ pnpm run start:dev
+Crea un archivo `.env` en la raíz del proyecto basándote en `.env.example`:
 
-# production mode
-$ pnpm run start:prod
+```env
+DATABASE_URL=mongodb+srv://<usuario>:<password>@<cluster>.mongodb.net/<database>
+RABBITMQ_URL=amqp://localhost
+PORT=3000
 ```
 
-## Run tests
+> Si RabbitMQ no está disponible, el servicio arranca igualmente pero omite la publicación de eventos.
+
+---
+
+## Pasos para instalación
+
+### Prerequisitos
+
+- Node.js 18 o superior
+- pnpm
+- Instancia de MongoDB (local o cloud, ej. MongoDB Atlas)
+- Instancia de RabbitMQ (local o cloud) — opcional
+
+### 1. Clonar el repositorio
 
 ```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+git clone <url-del-repositorio>
+cd galaga-travel-service
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 2. Instalar dependencias
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+pnpm install
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 3. Configurar variables de entorno
 
-## Resources
+```bash
+cp .env.example .env
+# Editar .env con tus credenciales de MongoDB y RabbitMQ
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+### 4. Generar el cliente de Prisma
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```bash
+pnpm exec prisma generate
+```
 
-## Support
+### 5. Ejecutar el servicio
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+# Desarrollo con hot-reload
+pnpm run start:dev
 
-## Stay in touch
+# Producción
+pnpm run build
+pnpm run start:prod
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### 6. Verificar que levantó correctamente
 
-## License
+- API: [http://localhost:3000](http://localhost:3000)
+- Swagger UI: [http://localhost:3000/docs](http://localhost:3000/docs)
+- Métricas: [http://localhost:3000/metrics](http://localhost:3000/metrics)
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
+
+## Endpoints
+
+**Base URL:** `/travels`
+
+| Método | Endpoint | Descripción | Body | Response | Evento RabbitMQ |
+|---|---|---|---|---|---|
+| `POST` | `/travels` | Crea un nuevo viaje | `CreateTravelDto` | `201` | `travel.created` |
+| `GET` | `/travels/all` | Lista todos los viajes | — | `200` — array de viajes | — |
+| `GET` | `/travels/:id` | Obtiene un viaje por su ID | — | `200` / `404` | — |
+| `GET` | `/travels/driver/:driverId` | Lista los viajes de un conductor | — | `200` — array de viajes | — |
+| `GET` | `/travels/organizer/:organizerId` | Lista los viajes de un organizador | — | `200` — array de viajes | — |
+| `GET` | `/travels/passenger/:passengerId` | Lista los viajes de un pasajero | — | `200` — array de viajes | — |
+| `GET` | `/travels/occupantList/:id` | Retorna la lista de pasajeros de un viaje | — | `200` — array de IDs | — |
+| `PUT` | `/travels/:id` | Actualiza todos los datos de un viaje | `CreateTravelDto` | `200` — viaje actualizado | `travel.updated` |
+| `PATCH` | `/travels/:id` | Cambia el estado del viaje | `{ status }` | `200` — viaje actualizado | `travel.completed` (si aplica) |
+| `PATCH` | `/travels/:id/slots` | Actualiza los cupos disponibles | `{ availableSlots }` | `200` | — |
+| `PATCH` | `/travels/:id/passengers` | Actualiza la lista de pasajeros | `{ passengersId }` | `200` | `travel.passengers.updated` |
+| `DELETE` | `/travels/:id` | Elimina un viaje por ID | — | `204 No Content` | `travel.cancelled` |
+| `GET` | `/metrics` | Métricas Prometheus del servicio | — | `200` — texto Prometheus | — |
+
+---
+
+## Modelos
+
+### CreateTravelDto
+
+```json
+{
+  "organizerId": 1,
+  "driverId": 2,
+  "availableSlots": 3,
+  "status": "CREATED",
+  "travelType": "DAILY",
+  "vehicleType": "CAR",
+  "estimatedCost": 5000,
+  "departureDateAndTime": "2025-06-10T08:00:00.000Z",
+  "passengersId": [10, 11],
+  "conditions": "No mascotas",
+  "origin": {
+    "latitude": 6.2442,
+    "longitude": -75.5812,
+    "direction": "Calle 50 # 40-20, Medellín"
+  },
+  "destination": {
+    "latitude": 6.2530,
+    "longitude": -75.5749,
+    "direction": "Carrera 70 # 45-10, Medellín"
+  },
+  "durationMinutes": 25
+}
+```
+
+### Enums
+
+| Campo | Valores permitidos |
+|---|---|
+| `status` | `CREATED` \| `IN_PROGRESS` \| `COMPLETED` \| `CANCELLED` |
+| `travelType` | `DAILY` \| `OCCASIONAL` |
+| `vehicleType` | `CAR` \| `MOTORCYCLE` \| `BUS` \| `BICYCLE` |
+
+---
+
+## Eventos publicados en RabbitMQ
+
+**Exchange:** `travel.exchange` (tipo: topic)
+
+| Evento | Routing Key | Cuándo se publica |
+|---|---|---|
+| TravelCreatedEvent | `travel.created` | Al crear un viaje |
+| TravelUpdatedEvent | `travel.updated` | Al actualizar un viaje |
+| TravelCompletedEvent | `travel.completed` | Al cambiar estado a `COMPLETED` |
+| TravelCancelledEvent | `travel.cancelled` | Al eliminar un viaje |
+| TravelUpdatedEvent | `travel.passengers.updated` | Al actualizar pasajeros |
+
+---
+
+## Evidencia Swagger 
+
+![alt text](docs/img/swagger.png)
+---
+
+## Evidencia Métricas Corriendo
+
+![alt text](docs/img/metricas.png)
+---
