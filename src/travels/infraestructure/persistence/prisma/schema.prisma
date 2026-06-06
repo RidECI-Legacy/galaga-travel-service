@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  CREATED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum TravelType {
+  DAILY
+  OCCASIONAL
+}
+
+enum VehicleType {
+  CAR
+  MOTORCYCLE
+  BUS
+  BICYCLE
+}
+
+type Location {
+  latitude  Float
+  longitude Float
+  direction String
+}
+
+model Travel {
+  id                   String      @id @default(auto()) @map("_id") @db.ObjectId
+
+  organizerId          BigInt
+  driverId             BigInt?
+
+  availableSlots       Int
+
+  status               Status
+  travelType           TravelType
+  vehicleType          VehicleType
+
+  estimatedCost        Float
+
+  departureDateAndTime DateTime
+
+  passengersId         BigInt[]
+
+  conditions           String?
+
+  origin               Location
+  destination          Location
+
+  durationMinutes      Float?
+}
