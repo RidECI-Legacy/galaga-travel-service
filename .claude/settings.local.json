@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\ACER\\\\Documents\\\\RideECI\\\\galaga-travel-service\\\\src\" -Recurse -File)",
+      "Bash(Select-Object FullName)",
+      "Bash(Sort-Object FullName)",
+      "Bash(npx jest *)",
+      "Bash(pnpm install *)",
+      "PowerShell(npm install *)",
+      "Bash(node node_modules/.bin/jest --no-coverage)"
+    ]
+  }
+}
