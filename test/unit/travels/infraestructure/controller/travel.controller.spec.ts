@@ -1,13 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { TravelController } from './travel.controller';
-import { TravelService } from '../../application/service/travel.service';
-import { TravelMapper } from '../persistence/travel.mapper';
-import { Status } from '../../domain/enums/status.enum';
-import { TravelType } from '../../domain/enums/travel-type.enum';
-import { VehicleType } from '../../domain/enums/vehicle-type.enum';
-import { Travel } from '../../domain/travel';
-import { TravelResponseDto } from './dto/travel-response.dto';
-import { CreateTravelDto } from './dto/create-travel.dto';
+import { TravelController } from 'src/travels/infraestructure/controller/travel.controller';
+import { TravelService } from 'src/travels/application/service/travel.service';
+import { TravelMapper } from 'src/travels/infraestructure/persistence/travel.mapper';
+import { Status } from 'src/travels/domain/enums/status.enum';
+import { TravelType } from 'src/travels/domain/enums/travel-type.enum';
+import { VehicleType } from 'src/travels/domain/enums/vehicle-type.enum';
+import { Travel } from 'src/travels/domain/travel';
+import { TravelResponseDto } from 'src/travels/infraestructure/controller/dto/travel-response.dto';
+import { CreateTravelDto } from 'src/travels/infraestructure/controller/dto/create-travel.dto';
 
 const mockOrigin = { latitude: 4.6, longitude: -74.1, direction: 'Calle 1' };
 const mockDest = { latitude: 4.7, longitude: -74.0, direction: 'Calle 2' };

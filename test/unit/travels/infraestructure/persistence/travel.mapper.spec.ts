@@ -1,8 +1,8 @@
-import { TravelMapper } from './travel.mapper';
-import { Status } from '../../domain/enums/status.enum';
-import { TravelType } from '../../domain/enums/travel-type.enum';
-import { VehicleType } from '../../domain/enums/vehicle-type.enum';
-import { Travel } from '../../domain/travel';
+import { TravelMapper } from 'src/travels/infraestructure/persistence/travel.mapper';
+import { Status } from 'src/travels/domain/enums/status.enum';
+import { TravelType } from 'src/travels/domain/enums/travel-type.enum';
+import { VehicleType } from 'src/travels/domain/enums/vehicle-type.enum';
+import { Travel } from 'src/travels/domain/travel';
 
 const mockOrigin = { latitude: 4.6, longitude: -74.1, direction: 'Calle 1' };
 const mockDest = { latitude: 4.7, longitude: -74.0, direction: 'Calle 2' };

@@ -1,4 +1,4 @@
-import { MetricsService } from './metrics.service';
+import { MetricsService } from 'src/metrics/metrics.service';
 
 jest.mock('prom-client', () => ({
   Registry: jest.fn().mockImplementation(() => ({
@@ -15,7 +15,7 @@ jest.mock('prom-client', () => ({
 describe('MetricsService', () => {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const promClient = require('prom-client');
-
+ 
   beforeEach(() => jest.clearAllMocks());
 
   it('should instantiate a Prometheus Registry', () => {

@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ExecutionContext, CallHandler } from '@nestjs/common';
 import { of } from 'rxjs';
-import { MetricsInterceptor } from './metrics.interceptor';
-import { MetricsService } from './metrics.service';
+import { MetricsInterceptor } from 'src/metrics/metrics.interceptor';
+import { MetricsService } from 'src/metrics/metrics.service';
 
 function buildContext(
   path: string,

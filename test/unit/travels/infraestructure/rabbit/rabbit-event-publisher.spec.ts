@@ -1,6 +1,5 @@
-import { RabbitEventPublisher } from './rabbit-event-publisher';
+import { RabbitEventPublisher } from 'src/travels/infraestructure/rabbit/rabbit-event-publisher';
 
-// Defined at module scope so each describe block can access them via require().
 jest.mock('amqplib', () => {
   const channel = {
     assertExchange: jest.fn().mockResolvedValue(undefined),
