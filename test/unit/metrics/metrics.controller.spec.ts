@@ -10,7 +10,7 @@ describe('MetricsController', () => {
   let metricsService: { registry: { contentType: string; metrics: jest.Mock } };
 
   beforeEach(async () => {
-    metricsService = {
+    metricsService = { 
       registry: {
         contentType: mockContentType,
         metrics: jest.fn().mockResolvedValue(mockMetricsOutput),
