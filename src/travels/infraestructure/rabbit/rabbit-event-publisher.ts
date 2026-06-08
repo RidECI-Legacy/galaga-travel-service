@@ -1,7 +1,6 @@
 import { Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import amqp from 'amqplib';
 import type { EventPublisherPort } from '../../application/ports/out/event-publisher.port';
-import { EVENT_PUBLISHER_PORT } from '../../application/ports/out/event-publisher.port';
 
 const EXCHANGE = 'travel.exchange';
 

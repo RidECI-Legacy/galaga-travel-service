@@ -25,7 +25,7 @@ export class TravelRepositoryAdapter implements TravelRepositoryPort {
     const saved = await this.prisma.travel.create({
       data: {
         organizerId: BigInt(travel.organizerId),
-        driverId: travel.driverId != null ? BigInt(travel.driverId) : null,
+        driverId: travel.driverId == null ? null : BigInt(travel.driverId),
         availableSlots: travel.availableSlots,
         status: travel.status,
         travelType: travel.travelType,
@@ -198,4 +198,4 @@ export class TravelRepositoryAdapter implements TravelRepositoryPort {
   }
 }
 
-export { TRAVEL_REPOSITORY_PORT };
+export { TRAVEL_REPOSITORY_PORT } from '../../application/ports/out/travel-repository.port';

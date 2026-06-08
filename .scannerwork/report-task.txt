@@ -3,5 +3,5 @@ projectKey=galaga-travel-service
 serverUrl=https://sonarcloud.io
 serverVersion=8.0.0.89582
 dashboardUrl=https://sonarcloud.io/dashboard?id=galaga-travel-service
-ceTaskId=AZ6lUP9Mr1hG-QfGLewT
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZ6lUP9Mr1hG-QfGLewT
+ceTaskId=AZ6lXjK92qhRnCtOE5N-
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZ6lXjK92qhRnCtOE5N-
