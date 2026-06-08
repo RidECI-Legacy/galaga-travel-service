@@ -58,4 +58,4 @@ export class RabbitEventPublisher implements EventPublisherPort, OnModuleInit, O
   }
 }
 
-export { EVENT_PUBLISHER_PORT };
+export { EVENT_PUBLISHER_PORT } from '../../application/ports/out/event-publisher.port';

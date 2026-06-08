@@ -13,7 +13,7 @@ export class TravelMapper {
     return {
       id: prisma.id as string,
       organizerId: Number(prisma.organizerId),
-      driverId: prisma.driverId != null ? Number(prisma.driverId) : undefined,
+      driverId: prisma.driverId == null ? undefined : Number(prisma.driverId),
       availableSlots: prisma.availableSlots,
       status: prisma.status as Status,
       travelType: prisma.travelType as TravelType,
@@ -22,8 +22,8 @@ export class TravelMapper {
       departureDateAndTime: prisma.departureDateAndTime,
       passengersId: prisma.passengersId.map(Number),
       conditions: prisma.conditions ?? undefined,
-      origin: prisma.origin as unknown as Location,
-      destination: prisma.destination as unknown as Location,
+      origin: prisma.origin as Location,
+      destination: prisma.destination as Location,
       durationMinutes: prisma.durationMinutes ?? undefined,
     };
   }
