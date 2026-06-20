@@ -210,3 +210,8 @@ pnpm run start:prod
 ---
 
 # Mas imagenes
+
+# 👤👤 Equipo de Desarrollo
+- [@JulianLopez11](https://github.com/JulianLopez11)
+- [@DiegoOrtiz](https://github.com/diegoortiz1008-hash)
+
