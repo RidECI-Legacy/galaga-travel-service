@@ -4,7 +4,7 @@ export class TravelCompletedEvent {
   id: string;
   organizerId: number;
   driverId?: number;
-  // vehicleType: VehicleType; // TODO: reintroducir cuando el dominio vuelva a soportarlo
+  // vehicleType: VehicleType; Me lo envia bob
   travelType: TravelType;
   passengersId: number[];
   totalKm: number;

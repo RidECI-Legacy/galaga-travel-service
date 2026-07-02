@@ -13,7 +13,7 @@ Construido con **NestJS**, **MongoDB** (a través de Prisma ORM) y **RabbitMQ** 
 | 🚀 NestJS 11                | Framework principal                 |
 | 🍃 MongoDB + Prisma 6       | Base de datos y ORM                 |
 | 📨 RabbitMQ (amqplib)       | Mensajería basada en eventos        |
-| 📖 Swagger / OpenAPI        | Documentación interactiva de la API |
+| 📖 Swagger / OpenAPI        | Documentación interactiva Ñde la API |
 | 📊 Prometheus (prom-client) | Monitoreo y métricas                |
 | ✅ class-validator           | Validación de DTOs                  |
 

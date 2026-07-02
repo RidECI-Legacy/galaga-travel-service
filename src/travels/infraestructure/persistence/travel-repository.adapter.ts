@@ -122,10 +122,10 @@ export class TravelRepositoryAdapter implements TravelRepositoryPort {
         id: domain.id!,
         organizerId: domain.organizerId,
         driverId: domain.driverId,
-        // vehicleType: domain.vehicleType, // TODO: reintroducir cuando el dominio vuelva a soportarlo
+        // vehicleType: domain.vehicleType, me lo envia bob
         travelType: domain.travelType,
         passengersId: domain.passengersId,
-        totalKm: 0, // TODO: reemplazar cuando el microservicio de tracking envíe el valor real
+        totalKm: 0, // me lo envia bob
         tripName: `${domain.origin.direction} → ${domain.destination.direction}`,
       };
       await this.eventPublisher.publish(event, 'travel.completed');
