@@ -40,6 +40,44 @@ src/
 
 ---
 
+# 🧩 Patrones de Diseño
+
+| Patrón        | Dónde se aplica                                                                                    | Propósito                                                                        |
+| -------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| 🧍 Singleton   | `metrics/metrics.service.ts` (registro único de Prometheus) y providers de NestJS (scope por defecto) | Garantiza una única instancia compartida (ej. el `Registry` de métricas)          |
+| 🏗️ Builder   | `main.ts` → `new DocumentBuilder().setTitle(...).setDescription(...).setVersion(...).build()`         | Construye la configuración de Swagger paso a paso antes de generar el documento   |
+
+---
+# 🖼️ Diagramas 
+
+## Contexto 
+
+Este diagrama muestra el sistema de viajes dentro de su contexto externo. El actor principal es el servicio de gestión de viajes, que interactúa con usuarios como conductor, pasajero, acompañante y administrador, además de integrarse con servicios de comunicación, notificaciones, pagos y gestión de usuarios.
+
+![Diagrama de contexto](docs/img/Contexto.png)
+---
+
+## Contenedores
+
+Este diagrama describe la arquitectura por contenedores del sistema. Se observan la aplicación web, la app móvil, el microservicio de gestión de viajes, la base de datos de viajes y las integraciones con los sistemas de usuarios y geolocalización.
+
+![Diagrama de contenedores](docs/img/contenedores.png)
+---
+
+## Clases
+
+Este diagrama presenta el modelo de dominio del viaje. Incluye la entidad principal Travel, el objeto Location, los enums de estado y tipo de viaje, el builder para construir viajes y el notificador de pasajeros.
+
+![Diagrama de clases](docs/img/clases.png)
+---
+
+## Datos
+
+Este diagrama representa la estructura de persistencia en MongoDB. Muestra cómo un viaje contiene la información de origen y destino como documentos embebidos, siguiendo el modelo NoSQL.
+
+![Diagrama de datos](docs/img/datos.png)
+
+
 # ⚙️ Variables de Entorno
 
 Crea un archivo `.env` en la raíz del proyecto usando `.env.example` como referencia:
