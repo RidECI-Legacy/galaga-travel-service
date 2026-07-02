@@ -4,7 +4,6 @@ import { TravelService } from 'src/travels/application/service/travel.service';
 import { TravelMapper } from 'src/travels/infraestructure/persistence/travel.mapper';
 import { Status } from 'src/travels/domain/enums/status.enum';
 import { TravelType } from 'src/travels/domain/enums/travel-type.enum';
-import { VehicleType } from 'src/travels/domain/enums/vehicle-type.enum';
 import { Travel } from 'src/travels/domain/travel';
 import { TravelResponseDto } from 'src/travels/infraestructure/controller/dto/travel-response.dto';
 import { CreateTravelDto } from 'src/travels/infraestructure/controller/dto/create-travel.dto';
@@ -20,7 +19,6 @@ function buildTravel(overrides: Partial<Travel> = {}): Travel {
     availableSlots: 3,
     status: Status.CREATED,
     travelType: TravelType.DAILY,
-    vehicleType: VehicleType.CAR,
     estimatedCost: 15000,
     departureDateAndTime: new Date('2026-06-10T08:00:00.000Z'),
     passengersId: [2, 3],
@@ -40,7 +38,6 @@ function buildResponse(overrides: Partial<TravelResponseDto> = {}): TravelRespon
     availableSlots: 3,
     status: Status.CREATED,
     travelType: TravelType.DAILY,
-    vehicleType: VehicleType.CAR,
     estimatedCost: 15000,
     departureDateAndTime: new Date('2026-06-10T08:00:00.000Z'),
     passengersId: [2, 3],
@@ -59,7 +56,6 @@ function buildDto(): CreateTravelDto {
     availableSlots: 3,
     status: Status.CREATED,
     travelType: TravelType.DAILY,
-    vehicleType: VehicleType.CAR,
     estimatedCost: 15000,
     departureDateAndTime: '2026-06-10T08:00:00.000Z',
     passengersId: [2, 3],

@@ -1,7 +1,6 @@
 import { TravelMapper } from 'src/travels/infraestructure/persistence/travel.mapper';
 import { Status } from 'src/travels/domain/enums/status.enum';
 import { TravelType } from 'src/travels/domain/enums/travel-type.enum';
-import { VehicleType } from 'src/travels/domain/enums/vehicle-type.enum';
 import { Travel } from 'src/travels/domain/travel';
 
 const mockOrigin = { latitude: 4.6, longitude: -74.1, direction: 'Calle 1' };
@@ -15,7 +14,6 @@ function buildPrismaTravel(overrides: Partial<any> = {}): any {
     availableSlots: 3,
     status: 'CREATED',
     travelType: 'DAILY',
-    vehicleType: 'CAR',
     estimatedCost: 15000,
     departureDateAndTime: new Date('2026-06-10T08:00:00.000Z'),
     passengersId: [BigInt(2), BigInt(3)],
@@ -35,7 +33,6 @@ function buildTravel(overrides: Partial<Travel> = {}): Travel {
     availableSlots: 3,
     status: Status.CREATED,
     travelType: TravelType.DAILY,
-    vehicleType: VehicleType.CAR,
     estimatedCost: 15000,
     departureDateAndTime: new Date('2026-06-10T08:00:00.000Z'),
     passengersId: [2, 3],
@@ -64,7 +61,6 @@ describe('TravelMapper', () => {
       expect(result.availableSlots).toBe(3);
       expect(result.status).toBe(Status.CREATED);
       expect(result.travelType).toBe(TravelType.DAILY);
-      expect(result.vehicleType).toBe(VehicleType.CAR);
       expect(result.estimatedCost).toBe(15000);
       expect(result.passengersId).toEqual([2, 3]);
       expect(result.conditions).toBe('No smoking');
@@ -117,7 +113,6 @@ describe('TravelMapper', () => {
       expect(result.availableSlots).toBe(3);
       expect(result.status).toBe(Status.CREATED);
       expect(result.travelType).toBe(TravelType.DAILY);
-      expect(result.vehicleType).toBe(VehicleType.CAR);
       expect(result.estimatedCost).toBe(15000);
       expect(result.passengersId).toEqual([2, 3]);
       expect(result.conditions).toBe('No smoking');

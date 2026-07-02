@@ -3,7 +3,6 @@ import { IsArray, IsDateString, IsEnum, IsNumber, IsOptional, IsString, Validate
 import { Type } from 'class-transformer';
 import { Status } from '../../../domain/enums/status.enum';
 import { TravelType } from '../../../domain/enums/travel-type.enum';
-import { VehicleType } from '../../../domain/enums/vehicle-type.enum';
 import { LocationDto } from './location.dto';
 
 export class CreateTravelDto {
@@ -27,10 +26,6 @@ export class CreateTravelDto {
   @ApiProperty({ enum: TravelType, example: TravelType.DAILY })
   @IsEnum(TravelType)
   travelType: TravelType;
-
-  @ApiProperty({ enum: VehicleType, example: VehicleType.CAR })
-  @IsEnum(VehicleType)
-  vehicleType: VehicleType;
 
   @ApiProperty({ example: 15000 })
   @IsNumber()

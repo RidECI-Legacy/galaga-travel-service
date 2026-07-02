@@ -1,7 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Status } from '../../../domain/enums/status.enum';
 import { TravelType } from '../../../domain/enums/travel-type.enum';
-import { VehicleType } from '../../../domain/enums/vehicle-type.enum';
 import { LocationDto } from './location.dto';
 
 export class TravelResponseDto {
@@ -22,9 +21,6 @@ export class TravelResponseDto {
 
   @ApiProperty({ enum: TravelType, example: TravelType.DAILY })
   travelType: TravelType;
-
-  @ApiProperty({ enum: VehicleType, example: VehicleType.CAR })
-  vehicleType: VehicleType;
 
   @ApiProperty({ example: 15000 })
   estimatedCost: number;

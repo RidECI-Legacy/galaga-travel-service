@@ -152,7 +152,6 @@ pnpm run start:prod
   "availableSlots": 3,
   "status": "CREATED",
   "travelType": "DAILY",
-  "vehicleType": "CAR",
   "estimatedCost": 5000,
   "departureDateAndTime": "2025-06-10T08:00:00.000Z",
   "passengersId": [10, 11],
@@ -179,7 +178,6 @@ pnpm run start:prod
 | -------------- | ----------------------------------------------------- |
 | 🚦 Status      | `CREATED` · `IN_PROGRESS` · `COMPLETED` · `CANCELLED` |
 | 🗓️ TravelType | `DAILY` · `OCCASIONAL`                                |
-| 🚘 VehicleType | `CAR` · `MOTORCYCLE` · `BUS` · `BICYCLE`              |
 
 ---
 

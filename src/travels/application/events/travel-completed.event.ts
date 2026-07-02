@@ -1,12 +1,12 @@
-import { Status } from '../../domain/enums/status.enum';
 import { TravelType } from '../../domain/enums/travel-type.enum';
 
 export class TravelCompletedEvent {
-  travelId: string;
-  driverId?: number;
+  id: string;
   organizerId: number;
+  driverId?: number;
+  // vehicleType: VehicleType; // TODO: reintroducir cuando el dominio vuelva a soportarlo
   travelType: TravelType;
-  departureDateAndTime: Date;
-  passengerList: number[];
-  state: Status;
+  passengersId: number[];
+  totalKm: number;
+  tripName?: string;
 }

@@ -29,7 +29,6 @@ export class TravelRepositoryAdapter implements TravelRepositoryPort {
         availableSlots: travel.availableSlots,
         status: travel.status,
         travelType: travel.travelType,
-        vehicleType: travel.vehicleType,
         estimatedCost: travel.estimatedCost,
         departureDateAndTime: travel.departureDateAndTime,
         passengersId: (travel.passengersId ?? []).map(BigInt),
@@ -49,7 +48,6 @@ export class TravelRepositoryAdapter implements TravelRepositoryPort {
       availableSlots: domain.availableSlots,
       status: domain.status,
       travelType: domain.travelType,
-      vehicleType: domain.vehicleType,
       estimatedCost: domain.estimatedCost,
       departureDateAndTime: domain.departureDateAndTime,
       passengersId: domain.passengersId,
@@ -121,13 +119,14 @@ export class TravelRepositoryAdapter implements TravelRepositoryPort {
 
     if (status === Status.COMPLETED) {
       const event: TravelCompletedEvent = {
-        travelId: domain.id!,
-        driverId: domain.driverId,
+        id: domain.id!,
         organizerId: domain.organizerId,
+        driverId: domain.driverId,
+        // vehicleType: domain.vehicleType, // TODO: reintroducir cuando el dominio vuelva a soportarlo
         travelType: domain.travelType,
-        departureDateAndTime: domain.departureDateAndTime,
-        passengerList: domain.passengersId,
-        state: domain.status,
+        passengersId: domain.passengersId,
+        totalKm: 0, // TODO: reemplazar cuando el microservicio de tracking envíe el valor real
+        tripName: `${domain.origin.direction} → ${domain.destination.direction}`,
       };
       await this.eventPublisher.publish(event, 'travel.completed');
     }

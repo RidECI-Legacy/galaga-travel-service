@@ -12,7 +12,6 @@ import { TravelMapper } from 'src/travels/infraestructure/persistence/travel.map
 import { EVENT_PUBLISHER_PORT } from 'src/travels/application/ports/out/event-publisher.port';
 import { Status } from 'src/travels/domain/enums/status.enum';
 import { TravelType } from 'src/travels/domain/enums/travel-type.enum';
-import { VehicleType } from 'src/travels/domain/enums/vehicle-type.enum';
 import { Travel } from 'src/travels/domain/travel';
 
 const mockOrigin = { latitude: 4.6, longitude: -74.1, direction: 'Calle 1' };
@@ -26,7 +25,6 @@ function buildDomain(overrides: Partial<Travel> = {}): Travel {
     availableSlots: 3,
     status: Status.CREATED,
     travelType: TravelType.DAILY,
-    vehicleType: VehicleType.CAR,
     estimatedCost: 15000,
     departureDateAndTime: new Date('2026-06-10T08:00:00.000Z'),
     passengersId: [2, 3],
@@ -46,7 +44,6 @@ function buildPrisma(overrides: Partial<any> = {}): any {
     availableSlots: 3,
     status: 'CREATED',
     travelType: 'DAILY',
-    vehicleType: 'CAR',
     estimatedCost: 15000,
     departureDateAndTime: new Date('2026-06-10T08:00:00.000Z'),
     passengersId: [BigInt(2), BigInt(3)],
@@ -239,7 +236,14 @@ describe('TravelRepositoryAdapter', () => {
       await adapter.changeState('travel-1', Status.COMPLETED);
 
       expect(eventPublisher.publish).toHaveBeenCalledWith(
-        expect.objectContaining({ travelId: 'travel-1', state: Status.COMPLETED }),
+        expect.objectContaining({
+          id: 'travel-1',
+          organizerId: domain.organizerId,
+          travelType: domain.travelType,
+          passengersId: domain.passengersId,
+          totalKm: 0,
+          tripName: `${domain.origin.direction} → ${domain.destination.direction}`,
+        }),
         'travel.completed',
       );
     });

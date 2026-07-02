@@ -19,13 +19,6 @@ enum TravelType {
   OCCASIONAL
 }
 
-enum VehicleType {
-  CAR
-  MOTORCYCLE
-  BUS
-  BICYCLE
-}
-
 type Location {
   latitude  Float
   longitude Float
@@ -42,7 +35,6 @@ model Travel {
 
   status               Status
   travelType           TravelType
-  vehicleType          VehicleType
 
   estimatedCost        Float
 
