@@ -60,7 +60,7 @@
     "typescript-eslint": "^8.20.0"
   },
   "prisma": {
-    "schema": "src/infraestructure/persistence/prisma/schema.prisma"
+    "schema": "src/travels/infraestructure/persistence/prisma/schema.prisma"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
