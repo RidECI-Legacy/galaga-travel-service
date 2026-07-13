@@ -245,7 +245,9 @@ pnpm run start:prod
 
 ---
 
-# Mas imagenes
+# SonarQube 
+
+![Sonar](docs/img/sonar.png)
 
 # 👤👤 Equipo de Desarrollo
 - [@JulianLopez11](https://github.com/JulianLopez11)
