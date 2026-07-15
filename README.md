@@ -223,13 +223,15 @@ pnpm run start:prod
 
 **Exchange:** `travel.exchange` *(tipo: topic)*
 
-| Evento                 | Routing Key                 | Descripción           |
-| ---------------------- | --------------------------- | --------------------- |
-| 🎉 TravelCreatedEvent  | `travel.created`            | Se crea un viaje      |
-| ✏️ TravelUpdatedEvent  | `travel.updated`            | Se actualiza un viaje |
-| ✅ TravelCompletedEvent | `travel.completed`          | El viaje finaliza     |
-| ❌ TravelCancelledEvent | `travel.cancelled`          | El viaje es cancelado |
-| 👥 TravelUpdatedEvent  | `travel.passengers.updated` | Cambian los pasajeros |
+| Evento                    | Routing Key                  | Cola                                    | Descripción                                                          |
+| ------------------------- | ----------------------------- | ---------------------------------------- | --------------------------------------------------------------------- |
+| 🎉 TravelCreatedEvent     | `travel.created`              | `travel.created.queue`                   | Se crea un viaje                                                      |
+| ✏️ TravelUpdatedEvent     | `travel.updated`              | `travel.updated.queue`                   | Se actualiza un viaje                                                 |
+| ✅ TravelCompletedEvent    | `travel.completed`            | `travel.completed.queue`                 | El viaje finaliza                                                     |
+| ❌ TravelCancelledEvent    | `travel.cancelled`            | `travel.cancelled.queue`                 | El viaje es cancelado                                                 |
+| 👥 TravelUpdatedEvent     | `travel.passengers.updated`   | `travel.passengers.updated.queue`        | Cambian los pasajeros                                                 |
+| 📍 TravelGeolocationEvent | `travel.geolocation.created`  | `geolocation.travel.created.queue`       | Consumido por **geolocalización**: `{ idViaje, integrantes }` (conductor + pasajeros) al crear el viaje |
+| 🧳 TravelCompletedEvent   | `travel.completed`            | `usuarios.travel.completed.queue`        | Consumido por **usuarios**: cola propia sobre el mismo evento `travel.completed`, para que el módulo de usuarios acumule el historial de viajes (`organizerId`/`driverId`/`passengersId`) de cada usuario |
 
 ---
 

@@ -11,6 +11,7 @@ import { TravelCreatedEvent } from '../../application/events/travel-created.even
 import { TravelUpdatedEvent } from '../../application/events/travel-updated.event';
 import { TravelCompletedEvent } from '../../application/events/travel-completed.event';
 import { TravelCancelledEvent } from '../../application/events/travel-cancelled.event';
+import { TravelGeolocationEvent } from '../../application/events/travel-geolocation.event';
 
 @Injectable()
 export class TravelRepositoryAdapter implements TravelRepositoryPort {
@@ -56,6 +57,14 @@ export class TravelRepositoryAdapter implements TravelRepositoryPort {
       destination: domain.destination,
     };
     await this.eventPublisher.publish(event, 'travel.created');
+
+    const geolocationEvent: TravelGeolocationEvent = {
+      idViaje: domain.id!,
+      integrantes: domain.driverId != null
+        ? [domain.driverId, ...domain.passengersId]
+        : [...domain.passengersId],
+    };
+    await this.eventPublisher.publish(geolocationEvent, 'travel.geolocation.created');
 
     return domain;
   }

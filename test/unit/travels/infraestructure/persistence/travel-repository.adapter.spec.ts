@@ -129,6 +129,36 @@ describe('TravelRepositoryAdapter', () => {
         }),
       );
     });
+
+    it('should publish travel.geolocation.created with idViaje and integrantes (driver + passengers)', async () => {
+      const input = buildDomain({ id: undefined });
+      const prismaRecord = buildPrisma();
+      const domain = buildDomain({ driverId: 5, passengersId: [2, 3] });
+      prisma.travel.create.mockResolvedValue(prismaRecord);
+      mapper.toDomain.mockReturnValue(domain);
+
+      await adapter.save(input);
+
+      expect(eventPublisher.publish).toHaveBeenCalledWith(
+        { idViaje: domain.id, integrantes: [5, 2, 3] },
+        'travel.geolocation.created',
+      );
+    });
+
+    it('should publish integrantes with only passengers when there is no driver yet', async () => {
+      const input = buildDomain({ id: undefined, driverId: undefined });
+      const prismaRecord = buildPrisma({ driverId: null });
+      const domain = buildDomain({ driverId: undefined, passengersId: [2, 3] });
+      prisma.travel.create.mockResolvedValue(prismaRecord);
+      mapper.toDomain.mockReturnValue(domain);
+
+      await adapter.save(input);
+
+      expect(eventPublisher.publish).toHaveBeenCalledWith(
+        { idViaje: domain.id, integrantes: [2, 3] },
+        'travel.geolocation.created',
+      );
+    });
   });
 
   describe('findById', () => {
