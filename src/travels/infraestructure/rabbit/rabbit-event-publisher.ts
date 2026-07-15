@@ -10,6 +10,8 @@ const QUEUES = [
   { name: 'travel.completed.queue', routingKey: 'travel.completed' },
   { name: 'travel.cancelled.queue', routingKey: 'travel.cancelled' },
   { name: 'travel.passengers.updated.queue', routingKey: 'travel.passengers.updated' },
+  { name: 'geolocation.travel.created.queue', routingKey: 'travel.geolocation.created' },
+  { name: 'usuarios.travel.completed.queue', routingKey: 'travel.completed' },
 ];
 
 @Injectable()

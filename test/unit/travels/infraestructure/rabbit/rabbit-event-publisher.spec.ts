@@ -31,7 +31,7 @@ describe('RabbitEventPublisher', () => {
   });
 
   describe('onModuleInit', () => {
-    it('should connect and assert exchange plus all five queues', async () => {
+    it('should connect and assert exchange plus all seven queues', async () => {
       await publisher.onModuleInit();
 
       const mockConnection = await amqpMock.default.connect.mock.results[0].value;
@@ -43,8 +43,8 @@ describe('RabbitEventPublisher', () => {
         'topic',
         { durable: true },
       );
-      expect(mockChannel.assertQueue).toHaveBeenCalledTimes(5);
-      expect(mockChannel.bindQueue).toHaveBeenCalledTimes(5);
+      expect(mockChannel.assertQueue).toHaveBeenCalledTimes(7);
+      expect(mockChannel.bindQueue).toHaveBeenCalledTimes(7);
     });
 
     it('should log a warning and not throw when RabbitMQ connection fails', async () => {
